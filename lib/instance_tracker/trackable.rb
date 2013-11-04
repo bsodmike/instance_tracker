@@ -3,6 +3,9 @@
 module InstanceTracker
 
   module Trackable
+
+    # The instance of {CleanRoom} is used to store our instance.
+
     class CleanRoom
       attr_reader :instance
 
@@ -24,6 +27,15 @@ module InstanceTracker
     end
 
     module InstanceMethods
+
+      # @api private
+      #
+      # The instance of {CleanRoom} is memoised and returned
+      # accordingly.
+      #
+      # @return [CleanRoom]
+      # @raise [NotImplementedError] if the instance variable tracked has not been defined within the included _klass.
+
       def trackable
         @trackable ||= begin
           entity = instance_variable_get(:"@#{singleton_class.trackable_instance}")
@@ -32,6 +44,8 @@ module InstanceTracker
         end
       end
 
+      # Returns the instance tracked by {CleanRoom}
+
       def trackable_instance
         trackable.instance
       end
@@ -39,6 +53,11 @@ module InstanceTracker
     end
 
     module ClassMethods
+
+      # Sets the instance variable to be tracked.
+      #
+      # @param name [String] the instance variable to track
+
       def track(name)
         singleton_class.class_eval do
           define_method :trackable_instance do

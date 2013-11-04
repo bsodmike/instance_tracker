@@ -1,6 +1,6 @@
 # InstanceTracker
 
-TODO: Write a gem description
+A Simple Ruby DSL for Instance Tracking.
 
 ## Installation
 
@@ -18,7 +18,24 @@ Or install it yourself as:
 
 ## API Summary
 
-TODO: Write usage instructions here
+Start by including `InstanceTracker::Trackable` within classes in which
+you want to track an instance variable; this provides the class
+a `track` class method which allows you to define which instance
+variable to track.
+
+```ruby
+  class Foo
+    include InstanceTracker::Trackable
+    track :wrapper
+
+    def initialize(wrapper)
+      @wrapper = wrapper
+    end
+  end
+```
+
+You are now able to access the `wrapper` by simply calling
+`trackable_instance` from any instance of your class.
 
 ## Contributing
 

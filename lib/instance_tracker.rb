@@ -1,5 +1,6 @@
+# encoding: utf-8
 require "instance_tracker/version"
 
 module InstanceTracker
-  # Your code goes here...
+  autoload :Trackable,    'instance_tracker/trackable'
 end

@@ -1,5 +1,5 @@
 # encoding: utf-8
-require 'currency_parser'
+require 'instance_tracker'
 require 'mocha/api'
 require 'pry'
 

@@ -19,6 +19,22 @@ module InstanceTracker
 
       def included _klass
         _klass.class_eval do
+          alias_method :initialize_old, :initialize
+          alias_method :after_initialize_old, :after_initialize if method_defined? "after_initialize"
+
+          def initialize
+            initialize_old
+            after_initialize
+          end
+
+          if method_defined? "after_initialize"
+            def after_initialize
+              after_initialize_old
+            end
+          else
+            def after_initialize; end
+          end
+
           include InstanceMethods
           extend ClassMethods
         end

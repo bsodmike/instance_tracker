@@ -19,45 +19,23 @@ Or install it yourself as:
 ## API Summary
 
 Start by including `InstanceTracker::Trackable` within classes in which
-you want to track an instance variable.  This should occur after the
-call to `initialize`.
+you want to track an instance variable; this provides the class
+a `track` class method which allows you to define which instance
+variable to track.
 
 ```ruby
   class Foo
+    include InstanceTracker::Trackable
+    track :wrapper
+
     def initialize(wrapper)
       @wrapper = wrapper
     end
-
-    include InstanceTracker::Trackable
-    track :wrapper
   end
 ```
-
-This provides the class a `track` class method which allows you to define which
-instance variable to track.
-
 
 You are now able to access the `wrapper` by simply calling
 `trackable_instance` from any instance of your class.
-
-The included class can also override `after_initialize` (implemented as
-a simple interface within `InstanceTracker::Trackable`) which will be
-called as soon as the included class is instantiated.
-
-```ruby
-  class Foo
-    def initialize(wrapper)
-      @wrapper = wrapper
-    end
-
-    def after_initialize
-      trackable_instance.meaning_of_life = "42"
-    end
-
-    include InstanceTracker::Trackable
-    track :wrapper
-  end
-```
 
 ## Contributing
 
